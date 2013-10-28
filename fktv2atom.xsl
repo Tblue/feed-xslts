@@ -5,6 +5,9 @@
     xmlns="http://www.w3.org/2005/Atom"
     version="1.0" exclude-result-prefixes="h">
 
+    <!-- Imports -->
+        <xsl:import href="util.xsl" />
+
     <!-- General settings -->
         <xsl:output indent="yes" encoding="utf-8" />
 
@@ -38,32 +41,9 @@
             />
 
     <!-- Named templates -->
-        <xsl:template name="monthname2int_padded_de">
-            <xsl:param name="monthname" select="'(unset)'" />
-
-            <xsl:choose>
-                <xsl:when test="$monthname = 'Januar'">01</xsl:when>
-                <xsl:when test="$monthname = 'Februar'">02</xsl:when>
-                <xsl:when test="$monthname = 'März'">03</xsl:when>
-                <xsl:when test="$monthname = 'April'">04</xsl:when>
-                <xsl:when test="$monthname = 'Mai'">05</xsl:when>
-                <xsl:when test="$monthname = 'Juni'">06</xsl:when>
-                <xsl:when test="$monthname = 'Juli'">07</xsl:when>
-                <xsl:when test="$monthname = 'August'">08</xsl:when>
-                <xsl:when test="$monthname = 'September'">09</xsl:when>
-                <xsl:when test="$monthname = 'Oktober'">10</xsl:when>
-                <xsl:when test="$monthname = 'November'">11</xsl:when>
-                <xsl:when test="$monthname = 'Dezember'">12</xsl:when>
-
-                <xsl:otherwise>
-                    <xsl:message terminate="yes">
-                        ERROR in template monthname2int_padded_de:
-                        Unhandled month name "<xsl:value-of select="$monthname" />"!
-                    </xsl:message>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:template>
-
+        <!-- Converts a Fernsehkritik.TV episode title (param 'title')
+             into an atom:updated element.
+        -->
         <xsl:template name="fktv_make_updated">
             <xsl:param name="title" select="''" />
 
