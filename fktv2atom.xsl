@@ -6,7 +6,7 @@
     version="1.0" exclude-result-prefixes="h">
 
     <!-- General settings -->
-        <xsl:output indent="yes" encoding="utf8" />
+        <xsl:output indent="yes" encoding="utf-8" />
 
     <!-- Variables -->
         <!-- WITH a trailing slash! -->
