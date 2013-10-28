@@ -5,13 +5,13 @@
     xmlns="http://www.w3.org/2005/Atom"
     version="1.0" exclude-result-prefixes="h">
 
+    <!-- General settings -->
+        <xsl:output indent="yes" encoding="utf8" />
+
     <!-- Variables -->
         <!-- WITH a trailing slash! -->
         <xsl:variable name="site_url" select="'http://fernsehkritik.tv/'" />
         <xsl:variable name="site_name" select="'Fernsehkritik.TV'" />
-
-    <!-- General settings -->
-        <xsl:output indent="yes" />
 
     <!-- Keys -->
         <!-- Select all divs with class "lclmo" that:
