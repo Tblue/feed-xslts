@@ -112,7 +112,7 @@
             <xsl:template match="key('episodes', 'content')//*">
                 <xsl:copy>
                     <xsl:copy-of select="@*" />
-                    <xsl:apply-templates match="*" />
+                    <xsl:apply-templates />
                 </xsl:copy>
             </xsl:template>
 
