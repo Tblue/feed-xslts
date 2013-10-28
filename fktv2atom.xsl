@@ -97,6 +97,7 @@
                 </xsl:copy>
             </xsl:template>
 
+        <!-- Root template -->
         <xsl:template match="/">
             <feed>
                 <author>
