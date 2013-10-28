@@ -2,7 +2,7 @@
 <xsl:stylesheet version="1.0"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:h="http://www.w3.org/1999/xhtml"
-    xmlns:atom="http://www.w3.org/2005/Atom">
+    xmlns="http://www.w3.org/2005/Atom">
 
     <!-- Variables -->
         <!-- WITH a trailing slash! -->
@@ -73,7 +73,7 @@
                 </xsl:message>
             </xsl:if>
 
-            <atom:updated>
+            <updated>
                 <!-- YYYY-MM-DD -->
                 <xsl:value-of select="concat('2', substring-after(
                                             substring-after(
@@ -94,7 +94,7 @@
                                         'vom '),
                                     '.')"
                         format="01"
-                    />T00:00:00+01:00</atom:updated>
+                    />T00:00:00+01:00</updated>
         </xsl:template>
 
     <!-- Matching templates -->
@@ -117,18 +117,18 @@
             </xsl:template>
 
         <xsl:template match="/">
-            <atom:feed>
-                <atom:author>
-                    <atom:name><xsl:value-of select="$site_name" /></atom:name>
-                </atom:author>
+            <feed>
+                <author>
+                    <name><xsl:value-of select="$site_name" /></name>
+                </author>
 
-                <atom:id>
+                <id>
                     <xsl:value-of select="$site_url" />
-                </atom:id>
+                </id>
 
-                <atom:title>
+                <title>
                     <xsl:value-of select="$site_name" />
-                </atom:title>
+                </title>
 
                 <xsl:for-each select="key('episodes', 'title')">
                     <!-- Is this the first valid (i. e. newest) episode? Use its date for
@@ -140,22 +140,22 @@
                         </xsl:call-template>
                     </xsl:if> 
 
-                    <atom:entry>
-                        <atom:id>
+                    <entry>
+                        <id>
                             <xsl:value-of select="concat($site_url,
                                                     substring-after(
                                                         h:h2/h:a/@href,
                                                         '../'))" />
-                        </atom:id>
+                        </id>
 
-                        <atom:link rel="alternate"
+                        <link rel="alternate"
                             href="{$site_url}{
                                     substring-after(
                                         h:h2/h:a/@href,
                                         '../')
                                     }Start/" />
 
-                        <atom:summary type="xhtml">
+                        <summary type="xhtml">
                             <div xmlns="http://www.w3.org/1999/xhtml">
                                 <p>
                                     <a href="{$site_url}{
@@ -173,17 +173,17 @@
                                 <xsl:apply-templates select="following-sibling::h:div[contains(@class, 'lclmi')][1]//
                                     h:div[@class='desc']/*" />
                             </div>
-                        </atom:summary>
+                        </summary>
 
-                        <atom:title>
+                        <title>
                             <xsl:value-of select="h:h2/h:a" />
-                        </atom:title>
+                        </title>
 
                         <xsl:call-template name="fktv_make_updated">
                             <xsl:with-param name="title" select="h:h2/h:a" />
                         </xsl:call-template>
-                    </atom:entry>
+                    </entry>
                 </xsl:for-each>
-            </atom:feed>
+            </feed>
         </xsl:template>
 </xsl:stylesheet>
