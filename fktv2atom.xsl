@@ -21,8 +21,15 @@
                         h:div[@class='links']//h:a[starts-with(@href, '/folge-')]
             ]"
         />
-    <xsl:key name="episodes" use="'content'" match="key('episodes', 'title')/
-            following-sibling::h:div[contains(@class, 'lclmi')][1]"
+    <!-- Apparently, one can't use key() in a key definition, so we need
+         to duplicate the expression above...
+    -->
+    <xsl:key name="episodes" use="'content'" match="//h:div[@id='episode']/h:div[
+                contains(@class, 'lclmo') and
+                    following-sibling::h:div[contains(@class, 'lclmi')][1]//
+                        h:div[@class='links']//h:a[starts-with(@href, '/folge-')]
+            ]
+            /following-sibling::h:div[contains(@class, 'lclmi')][1]"
         />
 
     <xsl:template name="monthname2int_padded_de">
