@@ -5,11 +5,11 @@
     xmlns="http://www.w3.org/2005/Atom"
     version="1.0" exclude-result-prefixes="h">
 
-    <!-- Imports -->
-        <xsl:import href="util.xsl" />
-
     <!-- General settings -->
         <xsl:output indent="yes" encoding="utf-8" />
+
+    <!-- Imports -->
+        <xsl:import href="util.xsl" />
 
     <!-- Variables -->
         <!-- WITH a trailing slash! -->
