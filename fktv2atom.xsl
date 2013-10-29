@@ -1,19 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!-- See the file COPYING in this distribution
      for details on the license of this file.
 -->
 
-<?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:h="http://www.w3.org/1999/xhtml"
     xmlns="http://www.w3.org/2005/Atom"
     version="1.0" exclude-result-prefixes="h">
 
-    <!-- General settings -->
-        <xsl:output indent="yes" encoding="utf-8" />
-
     <!-- Imports -->
         <xsl:import href="util.xsl" />
+
+    <!-- General settings -->
+        <xsl:output indent="yes" encoding="utf-8" />
 
     <!-- Variables -->
         <!-- WITH a trailing slash! -->
