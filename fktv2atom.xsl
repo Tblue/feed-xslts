@@ -26,16 +26,14 @@
                     contains(@class, 'lclmo') and
                         following-sibling::h:div[contains(@class, 'lclmi')][1]//
                             h:div[@class='links']//h:a[starts-with(@href, '/folge-')]
-                ]"
-            />
+                ]" />
 
         <!-- All the "lclmi" divs containing an episode link -->
         <xsl:key name="episodes" use="'content'" match="//h:div[@id='episode']/
                 h:div[
                     contains(@class, 'lclmi') and
                     .//h:div[@class='links']//h:a[starts-with(@href, '/folge-')]
-                ]"
-            />
+                ]" />
 
     <!-- Named templates -->
         <!-- Converts a Fernsehkritik.TV episode title (param 'title')
@@ -49,8 +47,7 @@
                     <xsl:value-of
                         select="concat(
                             'ERROR in template fktv_make_updated: ',
-                            'Empty title passed!')"
-                        />
+                            'Empty title passed!')" />
                 </xsl:message>
             </xsl:if>
 
@@ -64,8 +61,7 @@
                                 normalize-space(.),
                                 '. '),
                             ' 2'),
-                        '-')"
-                    />
+                        '-')" />
 
                 <!-- Month -->
                 <xsl:call-template name="monthname2int_padded_de">
@@ -74,8 +70,7 @@
                             substring-after(
                                 normalize-space(.),
                                 '. '),
-                            ' 2')"
-                        />
+                            ' 2')" />
                 </xsl:call-template>
                 <xsl:value-of select="'-'" />
 
@@ -86,8 +81,7 @@
                             normalize-space(.),
                             'vom '),
                         '.')"
-                    format="01"
-                    />
+                    format="01" />
 
                 <!-- Time -->
                 <xsl:value-of select="'T00:00:00+01:00'" />

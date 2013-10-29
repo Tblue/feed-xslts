@@ -28,8 +28,7 @@
                     <xsl:value-of
                         select="concat(
                             'ERROR in template monthname2int_padded_de: ',
-                            'Unhandled month name ', $monthname, '!')"
-                        />
+                            'Unhandled month name ', $monthname, '!')" />
                 </xsl:message>
             </xsl:otherwise>
         </xsl:choose>
