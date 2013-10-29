@@ -57,9 +57,7 @@
                     select="concat(
                         '2',
                         substring-after(
-                            substring-after(
-                                normalize-space(.),
-                                '. '),
+                            substring-after($title, '. '),
                             ' 2'),
                         '-')" />
 
@@ -67,9 +65,7 @@
                 <xsl:call-template name="monthname2int_padded_de">
                     <xsl:with-param name="monthname"
                         select="substring-before(
-                            substring-after(
-                                normalize-space(.),
-                                '. '),
+                            substring-after($title, '. '),
                             ' 2')" />
                 </xsl:call-template>
                 <xsl:value-of select="'-'" />
@@ -77,9 +73,7 @@
                 <!-- Day -->
                 <xsl:number
                     value="substring-before(
-                        substring-after(
-                            normalize-space(.),
-                            'vom '),
+                        substring-after($title, 'vom '),
                         '.')"
                     format="01" />
 
@@ -128,7 +122,7 @@
                     -->
                     <xsl:if test="position() = 1">
                         <xsl:call-template name="fktv_make_updated">
-                            <xsl:with-param name="title" select="h:h2/h:a" />
+                            <xsl:with-param name="title" select="normalize-space(h:h2/h:a)" />
                         </xsl:call-template>
                     </xsl:if> 
 
@@ -168,11 +162,11 @@
                         </summary>
 
                         <title>
-                            <xsl:value-of select="h:h2/h:a" />
+                            <xsl:value-of select="normalize-space(h:h2/h:a)" />
                         </title>
 
                         <xsl:call-template name="fktv_make_updated">
-                            <xsl:with-param name="title" select="h:h2/h:a" />
+                            <xsl:with-param name="title" select="normalize-space(h:h2/h:a)" />
                         </xsl:call-template>
                     </entry>
                 </xsl:for-each>
