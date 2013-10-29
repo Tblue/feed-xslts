@@ -42,7 +42,7 @@
              into an atom:updated element.
         -->
         <xsl:template name="fktv_make_updated">
-            <xsl:param name="title" select="''" />
+            <xsl:param name="title" />
 
             <xsl:if test="$title = ''">
                 <xsl:message terminate="yes">
@@ -52,27 +52,43 @@
             </xsl:if>
 
             <updated>
-                <!-- YYYY-MM-DD -->
-                <xsl:value-of select="concat('2', substring-after(
-                                            substring-after(
-                                                normalize-space(.),
-                                                '. '),
-                                            ' 2'))"
-                    />-<xsl:call-template name="monthname2int_padded_de">
-                            <xsl:with-param name="monthname"
-                                select="substring-before(
-                                            substring-after(
-                                                normalize-space(.),
-                                                '. '),
-                                            ' 2')" />
-                    </xsl:call-template>-<xsl:number
-                        value="substring-before(
-                                    substring-after(
-                                        normalize-space(.),
-                                        'vom '),
-                                    '.')"
-                        format="01"
-                    />T00:00:00+01:00</updated>
+                <!-- Year -->
+                <xsl:value-of
+                    select="concat(
+                        '2',
+                        substring-after(
+                            substring-after(
+                                normalize-space(.),
+                                '. '),
+                            ' 2'),
+                        '-')"
+                    />
+
+                <!-- Month -->
+                <xsl:call-template name="monthname2int_padded_de">
+                    <xsl:with-param name="monthname"
+                        select="substring-before(
+                            substring-after(
+                                normalize-space(.),
+                                '. '),
+                            ' 2')"
+                        />
+                </xsl:call-template>
+                <xsl:value-of select="'-'" />
+
+                <!-- Day -->
+                <xsl:number
+                    value="substring-before(
+                        substring-after(
+                            normalize-space(.),
+                            'vom '),
+                        '.')"
+                    format="01"
+                    />
+
+                <!-- Time -->
+                <xsl:value-of select="'T00:00:00+01:00'" />
+            </updated>
         </xsl:template>
 
     <!-- Matching templates -->
