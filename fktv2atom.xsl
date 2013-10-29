@@ -46,8 +46,11 @@
 
             <xsl:if test="$title = ''">
                 <xsl:message terminate="yes">
-                    ERROR in template fktv_make_updated:
-                    Empty title passed!
+                    <xsl:value-of
+                        select="concat(
+                            'ERROR in template fktv_make_updated: ',
+                            'Empty title passed!')"
+                        />
                 </xsl:message>
             </xsl:if>
 
