@@ -36,8 +36,6 @@ in_meta && $1 == "[/META]" {
     # End of metadata block.
     in_comment = 0
     in_meta    = 0
-    
-    printf("%s: Source is %s\n", FILENAME, source_url)
 }
 
 in_comment && in_meta {
