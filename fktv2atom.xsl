@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- See the file COPYING in this distribution
      for details on the license of this file.
+
+    [META]
+    SOURCE_URL http://fernsehkritik.tv/tv-magazin/
+    [/META]
 -->
 
 <xsl:stylesheet
