@@ -13,6 +13,10 @@ function reset_vars() {
 
 BEGIN {
     reset_vars()
+
+    # This serves as a list of optional global parameters that can be set
+    # when invoking this script.
+    xsltproc_opts = ""
 }
 
 NF == 0 {
@@ -57,7 +61,11 @@ END {
         printf("Warning: %s: No output file specified. Not processing.\n",
                FILENAME) | "cat >&2"
     } else {
-        # XXX: Process XSLT here...
+        # XXX: Download file here.
+
+        # We got all the needed variables; invoke xsltproc now.
+        command = sprintf("xsltproc %s -o '%s' %s %s",
+                xsltproc_opts, output_file, FILENAME, html_file);
 
         # Ready for the next stylesheet.
         reset_vars()
