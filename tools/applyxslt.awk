@@ -29,6 +29,7 @@
 # This script accepts the following optional global variables
 # (use awk's -v key=value option to specify them):
 #
+# output_dir    Where to put generated feeds. Default is ".".
 # temp_dir      Directory to use for temporary downloaded source files.
 #               Default is "/tmp".
 # curl_opts     Additional options to pass to curl. Default is "".
@@ -75,7 +76,7 @@ function process() {
     output_file = FILENAME
     # Strip file extension
     sub(/\.[^.]*/, "", output_file)
-    output_file = output_file ".atom"
+    output_file = output_dir "/" output_file ".atom"
 
     # Finally, let xsltproc do its magic.
     cmd = sprintf("xsltproc --encoding '%s' -o '%s' %s '%s' '%s'",
@@ -89,6 +90,10 @@ function process() {
 
 BEGIN {
     reset_vars()
+
+    if(output_dir == "") {
+        output_dir = "."
+    }
 
     if(temp_dir == "") {
         temp_dir = "/tmp"
