@@ -96,7 +96,8 @@ END {
         command = sprintf("xsltproc %s -o '%s' %s %s",
                 xsltproc_opts, output_file, FILENAME, html_file);
 
-        # Ready for the next stylesheet.
-        reset_vars()
     }
+
+    # Ready for the next stylesheet.
+    reset_vars()
 }
