@@ -81,7 +81,7 @@ function process() {
     cmd = sprintf("xsltproc --encoding '%s' -o '%s' %s '%s' '%s'",
             encoding, output_file, xsltproc_opts, FILENAME, source_file)
     if(system(cmd) > 0) {
-        printf("%s: Could transform source file: Command `%s' failed!",
+        printf("%s: Could not transform source file: Command `%s' failed!",
                FILENAME, cmd) | "cat >&2"
         return
     }
