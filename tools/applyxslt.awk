@@ -35,8 +35,6 @@ function reset_vars() {
 
 
 BEGIN {
-    reset_vars()
-
     if(temp_dir == "") {
         temp_dir = "/tmp"
     }
