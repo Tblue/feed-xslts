@@ -7,7 +7,6 @@ function reset_vars() {
     in_meta    = 0
 
     source_url  = ""
-    output_file = ""
 }
 
 
@@ -56,9 +55,6 @@ in_comment && in_meta {
 END {
     if(source_url == "") {
         printf("Warning: %s: No source URL specified. Not processing.\n",
-               FILENAME) | "cat >&2"
-    } else if(output_file == "") {
-        printf("Warning: %s: No output file specified. Not processing.\n",
                FILENAME) | "cat >&2"
     } else {
         # XXX: Download file here.
