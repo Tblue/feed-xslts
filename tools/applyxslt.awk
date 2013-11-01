@@ -20,6 +20,7 @@
 # allowed). The following keys are mandatory:
 #
 # SOURCE_URL    Remote location of the document to be transformed.
+# FEED_NAME     Name of the feed file to generate in output_dir.
 #
 # The following optional keys are accepted:
 #
@@ -41,6 +42,7 @@ function reset_vars() {
     in_meta    = 0
 
     source_url  = ""
+    feed_name   = ""
     encoding    = "utf8"
 }
 
@@ -73,10 +75,7 @@ function process() {
     }
 
     # Where to put the generated feed?
-    output_file = FILENAME
-    # Strip file extension
-    sub(/\.[^.]*/, "", output_file)
-    output_file = output_dir "/" output_file ".atom"
+    output_file = output_dir "/" feed_name
 
     # Finally, let xsltproc do its magic.
     cmd = sprintf("xsltproc --encoding '%s' -o '%s' %s '%s' '%s'",
@@ -128,8 +127,11 @@ in_comment && in_meta {
     if($1 == "SOURCE_URL") {
         source_url = $2
         next
-    } else if ($1 == "ENCODING") {
+    } else if($1 == "ENCODING") {
         encoding = $2
+        next
+    } else if($1 == "FEED_NAME") {
+        feed_name = $2
         next
     }
 
@@ -140,6 +142,9 @@ in_comment && in_meta {
 END {
     if(source_url == "") {
         printf("Warning: %s: No source URL specified. Not processing.\n",
+               FILENAME) | "cat >&2"
+    } else if(feed_name == "") {
+        printf("Warning: %s: No feed name specified. Not processing.\n",
                FILENAME) | "cat >&2"
     } else {
         process()
