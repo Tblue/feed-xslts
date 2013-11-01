@@ -60,7 +60,7 @@ function process() {
         curl_opts, source_file, source_url)
     if(system(cmd) > 0) {
         printf("%s: Could not retrieve source file: Command `%s' failed!",
-               FILENAME, cmd)
+               FILENAME, cmd) | "cat >&2"
         return
     }
 
@@ -70,7 +70,7 @@ function process() {
                     encoding, tidy_opts, source_file)
     if(system(cmd) >= 2) {
         printf("%s: Could not tidy source file: Command `%s' failed!",
-               FILENAME, cmd)
+               FILENAME, cmd) | "cat >&2"
         return
     }
 
@@ -82,7 +82,7 @@ function process() {
             encoding, output_file, xsltproc_opts, FILENAME, source_file)
     if(system(cmd) > 0) {
         printf("%s: Could transform source file: Command `%s' failed!",
-               FILENAME, cmd)
+               FILENAME, cmd) | "cat >&2"
         return
     }
 }
