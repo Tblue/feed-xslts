@@ -2,9 +2,11 @@
 # See the file COPYING in this distribution
 # for details on the license of this file.
 #
+#
 # Treats each input file as an XSLT stylesheet
 # and parses it for metadata. Downloads and processes
 # the source file for each stylesheet.
+#
 #
 # A metadata block is introduced by a line like
 # <!-- [META]
@@ -29,7 +31,9 @@
 #
 # temp_dir      Directory to use for temporary downloaded source files.
 #               Default is "/tmp".
-# xsltproc_opts Options to pass to xsltproc. Default is "".
+# curl_opts     Additional options to pass to curl. Default is "".
+# tidy_opts     Additional options to pass to HTML tidy. Default is "".
+# xsltproc_opts Additional options to pass to xsltproc. Default is "".
 
 function reset_vars() {
     in_comment = 0
