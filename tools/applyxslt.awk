@@ -43,6 +43,49 @@ function reset_vars() {
     encoding    = "utf8"
 }
 
+function process() {
+    # Where to put the downloaded source file?
+    source_file = source_url
+    # Trim trailing slashes
+    sub("/+$", "", source_file)
+    # Only leave the basename of the source URL
+    sub(".*/", "", source_file)
+    source_file = temp_dir "/" source_file
+
+    # Now, retrieve the source file.
+    cmd = sprintf("curl -fgLsS %s -o '%s' '%s'",
+        curl_opts, source_file, source_url)
+    if(system(cmd) > 0) {
+        printf("%s: Could not retrieve source file: Command `%s' failed!",
+               FILENAME, cmd)
+        return
+    }
+
+    # Then, run the source file through HTML tidy.
+    cmd = sprintf("tidy -mnq -asxml --char-encoding '%s' " \
+                        "--show-warnings 0 %s '%s'",
+                    encoding, tidy_opts, source_file)
+    if(system(cmd) >= 2) {
+        printf("%s: Could not tidy source file: Command `%s' failed!",
+               FILENAME, cmd)
+        return
+    }
+
+    # Where to put the generated feed?
+    output_file = FILENAME
+    # Strip file extension
+    sub(/\.[^.]*/, "", output_file)
+    output_file = output_file ".atom"
+
+    # Finally, let xsltproc do its magic.
+    cmd = sprintf("xsltproc --encoding '%s' -o '%s' %s '%s' '%s'",
+            encoding, output_file, xsltproc_opts, FILENAME, source_file)
+    if(system(cmd) > 0) {
+        printf("%s: Could transform source file: Command `%s' failed!",
+               FILENAME, cmd)
+        return
+    }
+}
 
 BEGIN {
     reset_vars()
@@ -94,12 +137,7 @@ END {
         printf("Warning: %s: No source URL specified. Not processing.\n",
                FILENAME) | "cat >&2"
     } else {
-        # XXX: Download file here.
-
-        # We got all the needed variables; invoke xsltproc now.
-        command = sprintf("xsltproc %s -o '%s' %s %s",
-                xsltproc_opts, output_file, FILENAME, html_file);
-
+        process()
     }
 
     # Ready for the next stylesheet.
