@@ -19,6 +19,11 @@
 #
 # SOURCE_URL    Remote location of the document to be transformed.
 #
+# The following optional keys are accepted:
+#
+# ENCODING      Encoding of the source file. Default is "utf8".
+#
+#
 # This script accepts the following optional global variables
 # (use awk's -v key=value option to specify them):
 #
@@ -31,10 +36,13 @@ function reset_vars() {
     in_meta    = 0
 
     source_url  = ""
+    encoding    = "utf8"
 }
 
 
 BEGIN {
+    reset_vars()
+
     if(temp_dir == "") {
         temp_dir = "/tmp"
     }
@@ -67,6 +75,9 @@ in_meta && $1 == "[/META]" {
 in_comment && in_meta {
     if($1 == "SOURCE_URL") {
         source_url = $2
+        next
+    } else if ($1 == "ENCODING") {
+        encoding = $2
         next
     }
 
