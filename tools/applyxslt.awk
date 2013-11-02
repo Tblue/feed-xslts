@@ -69,6 +69,9 @@ function process() {
                         "--show-warnings 0 %s '%s'",
                     encoding, tidy_opts, source_file)
     if(system(cmd) >= 2) {
+        # Exit status 2 means there were errors.
+        # (Exit status 1 indicates that there were
+        # warnings, but we allow that.)
         printf("%s: Could not tidy source file: Command `%s' failed!\n",
                FILENAME, cmd) | "cat >&2"
         return
