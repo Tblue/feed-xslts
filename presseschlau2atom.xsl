@@ -133,16 +133,9 @@
                         <summary type="xhtml">
                             <div xmlns="http://www.w3.org/1999/xhtml">
                                 <p>
-                                    <a href="{$site_url}{
-                                                substring-after(
-                                                    h:h2/h:a/@href,
-                                                    '../')
-                                                }Start/">
+                                    <a href="http://massengeschmack.tv{h:a[1]/@href}">
                                         <img alt="Preview"
-                                            src="{$site_url}{substring-after(
-                                                    following-sibling::h:div[contains(@class, 'lclmi')][1]//
-                                                        h:img[1]/@src,
-                                                    '../')}" />
+                                            src="http://massengeschmack.tv{h:p[1]/h:img[1]/@src}" />
                                     </a>
                                 </p>
                                 <p>
