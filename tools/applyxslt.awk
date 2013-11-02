@@ -138,10 +138,10 @@ in_meta && $1 == "[/META]" {
     last_endmeta = 1
 
     if(source_url == "") {
-        printf("Warning: %s: No source URL specified. Not processing.\n",
+        printf("%s: No source URL specified. Not processing.\n",
                FILENAME) | "cat >&2"
     } else if(feed_name == "") {
-        printf("Warning: %s: No feed name specified. Not processing.\n",
+        printf("%s: No feed name specified. Not processing.\n",
                FILENAME) | "cat >&2"
     } else {
         # Apply stylesheet to its source file.
@@ -161,6 +161,6 @@ in_comment && in_meta {
         next
     }
 
-    printf("Warning: %s: Invalid metadata key `%s' on line %d. Ignoring.\n",
+    printf("%s: Invalid metadata key `%s' on line %d. Ignoring.\n",
            FILENAME, $1, FNR) | "cat >&2"
 }
