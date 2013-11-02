@@ -176,7 +176,6 @@ $NF == "-->" {
 in_meta && $1 == "[/META]" {
     # End of metadata block. We should have all the needed data now.
     last_endmeta = 1
-    in_comment   = 0
     in_meta      = 0
 
     if(source_url == "") {
