@@ -37,6 +37,7 @@
 # tidy_opts     Additional options to pass to HTML tidy. Default is "".
 # xsltproc_opts Additional options to pass to xsltproc. Default is "".
 
+# Resets various file-specific variables to their initial values.
 function reset_vars() {
     last_file    = FILENAME
     # Set to 1 if there was a valid metadata section
@@ -60,6 +61,7 @@ function check_warn_invalid_meta() {
     }
 }
 
+# Applies the current XSLT stylesheet to its source file.
 function process() {
     # Where to put the downloaded source file?
     source_file = source_url
