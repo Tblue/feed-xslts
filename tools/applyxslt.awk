@@ -56,8 +56,8 @@ function process() {
     source_file = temp_dir "/" source_file
 
     # Now, retrieve the source file.
-    cmd = sprintf("curl -fgLsS %s -o '%s' '%s'",
-        curl_opts, source_file, source_url)
+    cmd = sprintf("curl -fgLsS -o '%s' %s '%s'",
+        source_file, curl_opts, source_url)
     if(system(cmd) > 0) {
         printf("%s: Could not retrieve source file: Command `%s' failed!\n",
                FILENAME, cmd) | "cat >&2"
