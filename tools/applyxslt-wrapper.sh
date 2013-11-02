@@ -7,9 +7,10 @@
 # global options; invokes applyxslt.awk with all stylesheets
 # found in XSLT_DIR.
 
-case "$PWD" in
-    /*) MYDIR="$PWD";;
-    *)  MYDIR="/${PWD}";;
+MYDIR="$(dirname "$0")"
+case "$MYDIR" in
+    /*) ;;
+    *)  MYDIR="${PWD}/${MYDIR}";;
 esac
 
 XSLT_DIR="${MYDIR}/.."
