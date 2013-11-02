@@ -51,6 +51,15 @@ function reset_vars() {
     encoding    = "utf8"
 }
 
+# Checks if the last processed file had an invalid
+# metadata section and displays a warning if that is the case.
+function check_warn_invalid_meta() {
+    if(! last_endmeta && last_file != "") {
+        printf("%s: No valid metadata found! Nothing processed.\n",
+               last_file) | "cat >&2"
+    }
+}
+
 function process() {
     # Where to put the downloaded source file?
     source_file = source_url
@@ -105,11 +114,14 @@ BEGIN {
     }
 }
 
+END {
+    # Check/warn if last file had invalid meta section
+    check_warn_invalid_meta()
+}
+
 FNR == 1 {
-    if(! last_endmeta && last_file != "") {
-        printf("%s: No valid metadata found! Nothing processed.\n",
-               last_file) | "cat >&2"
-    }
+    # Check/warn if last file had invalid meta section
+    check_warn_invalid_meta()
 
     # New file. Make sure to reset all the variables.
     reset_vars()
