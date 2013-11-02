@@ -59,7 +59,7 @@ function process() {
     cmd = sprintf("curl -fgLsS %s -o '%s' '%s'",
         curl_opts, source_file, source_url)
     if(system(cmd) > 0) {
-        printf("%s: Could not retrieve source file: Command `%s' failed!",
+        printf("%s: Could not retrieve source file: Command `%s' failed!\n",
                FILENAME, cmd) | "cat >&2"
         return
     }
@@ -69,7 +69,7 @@ function process() {
                         "--show-warnings 0 %s '%s'",
                     encoding, tidy_opts, source_file)
     if(system(cmd) >= 2) {
-        printf("%s: Could not tidy source file: Command `%s' failed!",
+        printf("%s: Could not tidy source file: Command `%s' failed!\n",
                FILENAME, cmd) | "cat >&2"
         return
     }
@@ -81,7 +81,7 @@ function process() {
     cmd = sprintf("xsltproc --encoding '%s' -o '%s' %s '%s' '%s'",
             encoding, output_file, xsltproc_opts, FILENAME, source_file)
     if(system(cmd) > 0) {
-        printf("%s: Could not transform source file: Command `%s' failed!",
+        printf("%s: Could not transform source file: Command `%s' failed!\n",
                FILENAME, cmd) | "cat >&2"
         return
     }
