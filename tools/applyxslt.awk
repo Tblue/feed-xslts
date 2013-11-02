@@ -163,7 +163,9 @@ in_comment && ! in_meta && ($1 == "[META]" || $1 == "<!--" && $2 == "[META]") {
         next
     }
 
-    in_meta = 1
+    last_endmeta = 0
+    in_meta      = 1
+
     next
 }
 
