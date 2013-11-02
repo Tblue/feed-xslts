@@ -155,7 +155,7 @@ $1 == "<!--" {
     # needs to be allowed to match as well.
 }
 
-$1 == "[META]" || $1 == "<!--" && $2 == "[META]" {
+in_comment && ! in_meta && ($1 == "[META]" || $1 == "<!--" && $2 == "[META]") {
     if(last_endmeta) {
         printf("%s: Line %d: Multiple metadata sections are not supported. " \
                     "Only the first one will be parsed.\n",
