@@ -18,7 +18,7 @@ OUTPUT_DIR="${MYDIR}/../out"
 TEMP_DIR=''
 
 CURL_BIN=''
-TIDY_BIN=''
+TIDY_BIN="${MYDIR}/tidy-html5/bin/tidy"
 XSLTPROC_BIN=''
 
 FIND_OPTS='-maxdepth 1'
