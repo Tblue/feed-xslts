@@ -156,6 +156,13 @@ $1 == "<!--" {
 }
 
 $1 == "[META]" || $1 == "<!--" && $2 == "[META]" {
+    if(last_endmeta) {
+        printf("%s: Line %d: Multiple metadata sections are not supported. " \
+                    "Only the first one will be parsed.\n",
+                FILENAME, FNR) | "cat >&2"
+        next
+    }
+
     in_meta = 1
     next
 }
