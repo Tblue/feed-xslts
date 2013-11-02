@@ -3,7 +3,8 @@
      for details on the license of this file.
 
     [META]
-    SOURCE_URL http://fernsehkritik.tv/tv-magazin/
+        SOURCE_URL  http://fernsehkritik.tv/tv-magazin/
+        FEED_NAME   fernsehkritik.atom
     [/META]
 -->
 
