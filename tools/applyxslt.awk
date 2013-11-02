@@ -193,7 +193,7 @@ in_meta && $1 == "[/META]" {
     }
 }
 
-in_comment && in_meta {
+in_meta {
     if($1 == "SOURCE_URL") {
         source_url = $2
         next
