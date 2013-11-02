@@ -110,7 +110,8 @@
                     <xsl:value-of select="$site_name" />
                 </title>
 
-                <link rel="via" href="{$site_url}" />
+                <!-- rel="via" would fit better, but is not recognized by Tiny Tiny RSS. -->
+                <link rel="alternate" href="{$site_url}" />
 
                 <xsl:for-each select="key('episodes', 'content')">
                     <!-- Is this the first valid (i. e. newest) episode? Use its date for
