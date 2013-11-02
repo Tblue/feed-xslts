@@ -125,6 +125,8 @@
                     <xsl:value-of select="$site_name" />
                 </title>
 
+                <link rel="via" href="{$site_url}" />
+
                 <xsl:for-each select="key('episodes', 'title')">
                     <!-- Is this the first valid (i. e. newest) episode? Use its date for
                          the feed's "last updated" element.
