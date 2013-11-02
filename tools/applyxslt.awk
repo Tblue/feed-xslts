@@ -59,7 +59,7 @@ function reset_vars() {
 # metadata section and displays a warning if that is the case.
 function check_warn_invalid_meta() {
     if(! last_endmeta && last_file != "") {
-        printf("%s: Invalid metadata section found! " \
+        printf("%s: No (or invalid) metadata section found! " \
                "File may not have been processed correctly.\n",
                     last_file) | "cat >&2"
     }
