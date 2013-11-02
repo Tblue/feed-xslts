@@ -1,4 +1,4 @@
-#!/bin/awk -f
+#!/usr/bin/awk -f
 # See the file COPYING in this distribution
 # for details on the license of this file.
 #
