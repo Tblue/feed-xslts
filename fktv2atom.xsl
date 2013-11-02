@@ -103,7 +103,7 @@
                 h:a[starts-with(@class, 'jump')]" />
 
             <!-- Copy everything else. -->
-            <xsl:template match="key('episodes', 'content')//*">
+            <xsl:template match="key('episodes', 'content')//node()">
                 <xsl:copy>
                     <xsl:copy-of select="@*" />
                     <xsl:apply-templates />
@@ -166,7 +166,7 @@
                                     </a>
                                 </p>
                                 <xsl:apply-templates select="following-sibling::h:div[contains(@class, 'lclmi')][1]//
-                                    h:div[@class='desc']/*" />
+                                    h:div[@class='desc']/node()" />
                             </div>
                         </summary>
 
