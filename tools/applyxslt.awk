@@ -68,7 +68,7 @@ function process() {
     # Trim trailing slashes
     sub("/+$", "", source_file)
     # Only leave the basename of the source URL
-    sub(".*/", "", source_file)
+    sub("^.*/", "", source_file)
     source_file = temp_dir "/" source_file
 
     # Now, retrieve the source file.
