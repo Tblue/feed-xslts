@@ -121,9 +121,22 @@ $1 == "[META]" || $1 == "<!--" && $2 == "[META]" {
 }
 
 in_meta && $1 == "[/META]" {
-    # End of metadata block.
-    in_comment = 0
-    in_meta    = 0
+    # End of metadata block. We should have all the needed data now.
+    last_endmeta = 1
+
+    if(source_url == "") {
+        printf("Warning: %s: No source URL specified. Not processing.\n",
+               FILENAME) | "cat >&2"
+    } else if(feed_name == "") {
+        printf("Warning: %s: No feed name specified. Not processing.\n",
+               FILENAME) | "cat >&2"
+    } else {
+        # Apply stylesheet to its source file.
+        process()
+    }
+
+    # Ready for the next stylesheet.
+    reset_vars()
 }
 
 in_comment && in_meta {
@@ -140,19 +153,4 @@ in_comment && in_meta {
 
     printf("Warning: %s: Invalid metadata key `%s' on line %d. Ignoring.\n",
            FILENAME, $1, FNR) | "cat >&2"
-}
-
-END {
-    if(source_url == "") {
-        printf("Warning: %s: No source URL specified. Not processing.\n",
-               FILENAME) | "cat >&2"
-    } else if(feed_name == "") {
-        printf("Warning: %s: No feed name specified. Not processing.\n",
-               FILENAME) | "cat >&2"
-    } else {
-        process()
-    }
-
-    # Ready for the next stylesheet.
-    reset_vars()
 }
