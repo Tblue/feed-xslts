@@ -167,6 +167,12 @@ $1 == "[META]" || $1 == "<!--" && $2 == "[META]" {
     next
 }
 
+$NF == "-->" {
+    in_comment = 0
+    # Closing comment also ends a metadata block.
+    in_meta    = 0
+}
+
 in_meta && $1 == "[/META]" {
     # End of metadata block. We should have all the needed data now.
     last_endmeta = 1
