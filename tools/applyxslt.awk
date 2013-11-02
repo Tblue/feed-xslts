@@ -38,6 +38,11 @@
 # xsltproc_opts Additional options to pass to xsltproc. Default is "".
 
 function reset_vars() {
+    last_file    = FILENAME
+    # Set to 1 if there was a valid metadata section
+    # in the last file processed.
+    last_endmeta = 0
+
     in_comment = 0
     in_meta    = 0
 
@@ -91,8 +96,6 @@ function process() {
 }
 
 BEGIN {
-    reset_vars()
-
     if(output_dir == "") {
         output_dir = "."
     }
@@ -100,6 +103,16 @@ BEGIN {
     if(temp_dir == "") {
         temp_dir = "/tmp"
     }
+}
+
+FNR == 1 {
+    if(! last_endmeta && last_file != "") {
+        printf("%s: No valid metadata found! Nothing processed.\n",
+               last_file) | "cat >&2"
+    }
+
+    # New file. Make sure to reset all the variables.
+    reset_vars()
 }
 
 NF == 0 {
@@ -134,9 +147,6 @@ in_meta && $1 == "[/META]" {
         # Apply stylesheet to its source file.
         process()
     }
-
-    # Ready for the next stylesheet.
-    reset_vars()
 }
 
 in_comment && in_meta {
