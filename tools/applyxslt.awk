@@ -33,6 +33,9 @@
 # output_dir    Where to put generated feeds. Default is ".".
 # temp_dir      Directory to use for temporary downloaded source files.
 #               Default is "/tmp".
+# curl_bin      Path to curl binary. Default is "curl".
+# tidy_bin      Path to HTML tidy binary. Default is "tidy".
+# xsltproc_bin  Path to xsltproc binary. Default is "xsltproc".
 # curl_opts     Additional options to pass to curl. Default is "".
 # tidy_opts     Additional options to pass to HTML tidy. Default is "".
 # xsltproc_opts Additional options to pass to xsltproc. Default is "".
@@ -72,8 +75,8 @@ function process() {
     source_file = temp_dir "/" source_file
 
     # Now, retrieve the source file.
-    cmd = sprintf("curl -fgLsS -o '%s' %s '%s'",
-        source_file, curl_opts, source_url)
+    cmd = sprintf("'%s' -fgLsS -o '%s' %s '%s'",
+        curl_bin, source_file, curl_opts, source_url)
     if(system(cmd) > 0) {
         printf("%s: Could not retrieve source file: Command `%s' failed!\n",
                FILENAME, cmd) | "cat >&2"
@@ -81,9 +84,9 @@ function process() {
     }
 
     # Then, run the source file through HTML tidy.
-    cmd = sprintf("tidy -mnq -asxml --char-encoding '%s' " \
+    cmd = sprintf("'%s' -mnq -asxml --char-encoding '%s' " \
                         "--show-warnings 0 %s '%s'",
-                    encoding, tidy_opts, source_file)
+                    tidy_bin, encoding, tidy_opts, source_file)
     if(system(cmd) >= 2) {
         # Exit status 2 means there were errors.
         # (Exit status 1 indicates that there were
@@ -97,8 +100,9 @@ function process() {
     output_file = output_dir "/" feed_name
 
     # Finally, let xsltproc do its magic.
-    cmd = sprintf("xsltproc --encoding '%s' -o '%s' %s '%s' '%s'",
-            encoding, output_file, xsltproc_opts, FILENAME, source_file)
+    cmd = sprintf("'%s' --encoding '%s' -o '%s' %s '%s' '%s'",
+            xsltproc_bin, encoding, output_file, xsltproc_opts,
+            FILENAME, source_file)
     if(system(cmd) > 0) {
         printf("%s: Could not transform source file: Command `%s' failed!\n",
                FILENAME, cmd) | "cat >&2"
@@ -110,9 +114,18 @@ BEGIN {
     if(output_dir == "") {
         output_dir = "."
     }
-
     if(temp_dir == "") {
         temp_dir = "/tmp"
+    }
+
+    if(curl_bin == "") {
+        curl_bin = "curl"
+    }
+    if(tidy_bin == "") {
+        tidy_bin = "tidy"
+    }
+    if(xsltproc_bin == "") {
+        xsltproc_bin = "xsltproc"
     }
 }
 
