@@ -88,7 +88,7 @@
             <xsl:template match="key('episodes', 'content')/h:p/h:img" />
 
             <!-- Copy everything else. -->
-            <xsl:template match="key('episodes', 'content')/h:p/*">
+            <xsl:template match="key('episodes', 'content')/h:p//node()">
                 <xsl:copy>
                     <xsl:copy-of select="@*" />
                     <xsl:apply-templates />
@@ -146,7 +146,7 @@
                                     </a>
                                 </p>
                                 <p>
-                                    <xsl:apply-templates select="h:p" />
+                                    <xsl:apply-templates select="h:p/node()" />
                                 </p>
                             </div>
                         </summary>
