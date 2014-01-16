@@ -125,8 +125,16 @@
                     <xsl:value-of select="$site_name" />
                 </title>
 
-                <!-- rel="via" would fit better, but is not recognized by Tiny Tiny RSS. -->
-                <link rel="alternate" href="{$site_url}" />
+                <!-- rel="via" would fit better, but Tiny Tiny RSS only accepts the feed link if it
+                     has rel="alternate". Actually, that's not quite true: It only accepts the feed link
+                     if it has NO "rel" attribute at all (which, according to RFC 4287, section 4.2.7.2,
+                     is the same as explicitly specifying rel="alternate"). In other words, Tiny Tiny RSS
+                     punishes you for saying the unsaid. Oh well.
+
+                     Tiny Tiny RSS _does_ accept ENTRY links with an explicit rel="alternate", though.
+                     Crappy parser.
+                -->
+                <link href="{$site_url}" />
 
                 <xsl:for-each select="key('episodes', 'title')">
                     <!-- Is this the first valid (i. e. newest) episode? Use its date for
