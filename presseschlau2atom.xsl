@@ -97,7 +97,7 @@
 
         <!-- Root template -->
         <xsl:template match="/">
-            <feed>
+            <feed xml:base="{$site_url}">
                 <author>
                     <name><xsl:value-of select="$site_name" /></name>
                 </author>
@@ -146,7 +146,7 @@
                                 <p>
                                     <a href="http://massengeschmack.tv{h:a[1]/@href}">
                                         <img alt="Preview"
-                                            src="http://massengeschmack.tv{h:p[1]/h:img[1]/@src}" />
+                                            src="{h:p[1]/h:img[1]/@src}" />
                                     </a>
                                 </p>
                                 <p>
